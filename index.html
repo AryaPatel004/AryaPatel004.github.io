@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Arya Patel — Embedded Systems Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #07090f;
+    --bg2: #0d1117;
+    --bg3: #111722;
+    --blue: #00c8ff;
+    --blue-dim: rgba(0,200,255,0.12);
+    --amber: #f4a261;
+    --text: #e2e8f0;
+    --muted: #718096;
+    --border: rgba(0,200,255,0.15);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── GRID BACKGROUND ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,200,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,200,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
+    backdrop-filter: blur(12px);
+    background: rgba(7,9,15,0.8);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 3px;
+    color: var(--blue);
+    text-decoration: none;
+  }
+
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+
+  .nav-links a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--blue); }
+
+  /* ── SECTIONS ── */
+  section {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 100px 40px;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 140px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+
+  .hero-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--blue);
+    letter-spacing: 3px;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+
+  .hero-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 10vw, 9rem);
+    line-height: 0.9;
+    letter-spacing: 4px;
+    color: var(--text);
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.4s;
+  }
+
+  .hero-name span { color: var(--blue); }
+
+  .hero-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    font-weight: 300;
+    color: var(--muted);
+    margin-top: 20px;
+    max-width: 600px;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.6s;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 16px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.8s;
+  }
+
+  .btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    padding: 12px 28px;
+    border-radius: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.25s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-primary {
+    background: var(--blue);
+    color: #07090f;
+    border: 1px solid var(--blue);
+    font-weight: 500;
+  }
+
+  .btn-primary:hover {
+    background: transparent;
+    color: var(--blue);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+  }
+
+  .hero-socials {
+    display: flex;
+    gap: 20px;
+    margin-top: 60px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 1s;
+  }
+
+  .social-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+  }
+
+  .social-link:hover {
+    color: var(--blue);
+    border-bottom-color: var(--blue);
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--blue);
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    letter-spacing: 2px;
+    line-height: 1;
+    margin-bottom: 48px;
+  }
+
+  /* ── ABOUT ── */
+  #about { border-top: 1px solid var(--border); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: var(--muted);
+    line-height: 1.9;
+    margin-bottom: 16px;
+    font-size: 0.95rem;
+  }
+
+  .about-text p strong { color: var(--text); font-weight: 500; }
+
+  .about-info { display: flex; flex-direction: column; gap: 20px; }
+
+  .info-item {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 20px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .info-item::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--blue);
+  }
+
+  .info-item-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--blue);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+
+  .info-item-val {
+    font-size: 0.92rem;
+    color: var(--text);
+    font-weight: 400;
+  }
+
+  /* ── SKILLS ── */
+  #skills { border-top: 1px solid var(--border); background: var(--bg2); max-width: 100%; }
+  #skills > div { max-width: 1100px; margin: 0 auto; padding: 100px 40px; }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+  .skill-category {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+
+  .skill-category:hover {
+    border-color: var(--blue);
+    transform: translateY(-4px);
+  }
+
+  .skill-cat-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--blue);
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .skill-tag {
+    font-size: 0.78rem;
+    color: var(--text);
+    background: rgba(0,200,255,0.07);
+    border: 1px solid rgba(0,200,255,0.2);
+    padding: 4px 10px;
+    border-radius: 2px;
+    font-weight: 400;
+  }
+
+  /* ── PROJECTS ── */
+  #projects { border-top: 1px solid var(--border); }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .project-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: border-color 0.3s, transform 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--blue), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .project-card:hover {
+    border-color: rgba(0,200,255,0.4);
+    transform: translateY(-5px);
+  }
+
+  .project-card:hover::after { opacity: 1; }
+
+  .project-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--blue);
+    letter-spacing: 2px;
+    opacity: 0.6;
+  }
+
+  .project-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+    line-height: 1.1;
+    color: var(--text);
+  }
+
+  .project-desc {
+    font-size: 0.87rem;
+    color: var(--muted);
+    line-height: 1.75;
+    flex: 1;
+  }
+
+  .project-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .project-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--amber);
+    border: 1px solid rgba(244,162,97,0.3);
+    padding: 3px 8px;
+    border-radius: 2px;
+    letter-spacing: 0.5px;
+  }
+
+  .project-links { display: flex; gap: 12px; margin-top: 4px; }
+
+  .project-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--blue);
+    text-decoration: none;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: opacity 0.2s;
+  }
+
+  .project-link:hover { opacity: 0.7; }
+
+  /* ── EXPERIENCE ── */
+  #experience { border-top: 1px solid var(--border); background: var(--bg2); max-width: 100%; }
+  #experience > div { max-width: 1100px; margin: 0 auto; padding: 100px 40px; }
+  .experience-list { display: flex; flex-direction: column; gap: 24px; }
+
+  .exp-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 40px;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 40px;
+  }
+
+  .exp-meta { border-right: 1px solid var(--border); padding-right: 40px; }
+
+  .exp-company {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+    color: var(--blue);
+    margin-bottom: 8px;
+  }
+
+  .exp-duration {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  .exp-location {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  .exp-role {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    color: var(--text);
+    margin-bottom: 20px;
+  }
+
+  .exp-points { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+
+  .exp-points li {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .exp-points li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--blue);
+    font-size: 0.7rem;
+    top: 3px;
+  }
+
+  /* ── EDUCATION ── */
+  #education { border-top: 1px solid var(--border); }
+
+  .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+  .edu-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 28px 32px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+
+  .edu-card:hover { border-color: rgba(0,200,255,0.4); }
+
+  .edu-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle, rgba(0,200,255,0.08) 0%, transparent 70%);
+  }
+
+  .edu-degree {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .edu-school {
+    font-size: 0.9rem;
+    color: var(--blue);
+    margin-bottom: 6px;
+    font-weight: 400;
+  }
+
+  .edu-year {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  /* ── CONTACT ── */
+  #contact { border-top: 1px solid var(--border); text-align: center; }
+
+  .contact-sub {
+    color: var(--muted);
+    font-size: 0.95rem;
+    max-width: 500px;
+    margin: 0 auto 40px;
+    line-height: 1.8;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 30px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-copy {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    #hero { padding-left: 24px; padding-right: 24px; }
+    section { padding: 70px 24px; }
+    .about-grid { grid-template-columns: 1fr; gap: 32px; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .exp-card { grid-template-columns: 1fr; gap: 20px; }
+    .exp-meta { border-right: none; border-bottom: 1px solid var(--border); padding-right: 0; padding-bottom: 20px; }
+    .edu-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 12px; text-align: center; }
+    #skills > div, #experience > div { padding: 70px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">AP</a>
+  <ul class="nav-links">
+    <li><a href="#about">ABOUT</a></li>
+    <li><a href="#skills">SKILLS</a></li>
+    <li><a href="#projects">PROJECTS</a></li>
+    <li><a href="#experience">EXPERIENCE</a></li>
+    <li><a href="#education">EDUCATION</a></li>
+    <li><a href="#contact">CONTACT</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div id="hero">
+  <p class="hero-tag">EMBEDDED SYSTEMS & HARDWARE ENGINEER</p>
+  <h1 class="hero-name">ARYA PATEL<br><span></span></h1>
+  <p class="hero-title">
+    ECE graduate passionate about embedded systems, PCB design, and IoT. 
+    Building hardware from schematic to silicon — microcontrollers, sensors, and everything in between.
+  </p>
+  <div class="hero-cta">
+    <a href="#projects" class="btn btn-primary">VIEW PROJECTS ↓</a>
+    <a href="https://github.com/AryaPatel004" target="_blank" class="btn btn-ghost">GITHUB →</a>
+  </div>
+  <div class="hero-socials">
+    <a href="https://github.com/AryaPatel004" target="_blank" class="social-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+      GITHUB
+    </a>
+    <a href="https://www.linkedin.com/in/asp7203" target="_blank" class="social-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LINKEDIN
+    </a>
+    <a href="mailto:aryapatel7203@gmail.com" target="_blank" class="social-link">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 12.713l-11.985-9.713h23.97l-11.985 9.713zm0 2.574l-12-9.725v15.438h24v-15.438l-12 9.725z"/>
+  </svg>
+  EMAIL
+</a>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <!--<p class="section-label reveal">01</p>-->
+  <h2 class="section-title reveal">ABOUT ME</h2>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>
+        I'm currently a Master of Embedded and Cyber-Physical System student at <strong>University of California, Irvine</strong>, with my undergraduate degree in Electronics and Communications Engineering from <strong>Nirma University, Ahmedabad</strong>.
+      </p>
+      <p>
+        My work lives at the intersection of hardware and software — I design circuits, write firmware, and build systems that interact with the physical world. From RFID-based access control to IoT swarm networks, I like projects where the output is something you can hold or plug in.
+      </p>
+      <p>
+        My experience spans embedded product development, ASIC design workflows, and technical instruction support. I've built hardware at <strong>Swasau Technology</strong>, explored RTL-to-GDSII physical design at <strong>E-Infochips</strong>, and currently support undergraduate signals coursework at <strong>UC Irvine</strong> as an Academic Reader.
+      </p>
+    </div>
+    <div class="about-info reveal">
+      <div class="info-item">
+        <p class="info-item-label">CURRENTLY</p>
+        <p class="info-item-val">MECPS student at UC Irvine</p>
+      </div>
+      <div class="info-item">
+        <p class="info-item-label">FOCUS AREA</p>
+        <p class="info-item-val">Embedded Systems · PCB Design · Firmware Design · IoT</p>
+      </div>
+      <div class="info-item">
+        <p class="info-item-label">TOOLS</p>
+        <p class="info-item-val">EasyEDA · STM32CubeIDE · Arduino IDE · Node-RED</p>
+      </div>
+      <div class="info-item">
+        <p class="info-item-label">GITHUB</p>
+        <p class="info-item-val"><a href="https://github.com/AryaPatel004" target="_blank" style="color:var(--blue);text-decoration:none;">github.com/AryaPatel004</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" style="padding:0; max-width:100%;">
+<div>
+  <!-- <p class="section-label reveal">02</p> -->
+  <h2 class="section-title reveal">SKILLS</h2>
+  <div class="skills-grid">
+    <div class="skill-category reveal">
+      <p class="skill-cat-title">LANGUAGES</p>
+      <div class="skill-tags">
+        <span class="skill-tag">C</span>
+        <span class="skill-tag">Embedded C</span>
+        <span class="skill-tag">C++</span>
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">Arduino (C++)</span>
+      </div>
+    </div>
+    <div class="skill-category reveal">
+      <p class="skill-cat-title">MICROCONTROLLERS</p>
+      <div class="skill-tags">
+        <span class="skill-tag">STM32</span>
+        <span class="skill-tag">STM8</span>
+        <span class="skill-tag">ESP32</span>
+        <span class="skill-tag">Raspberry Pi 5</span>
+        <span class="skill-tag">CH592</span>
+      </div>
+    </div>
+    <div class="skill-category reveal">
+      <p class="skill-cat-title">PROTOCOLS</p>
+      <div class="skill-tags">
+        <span class="skill-tag">UART</span>
+        <span class="skill-tag">SPI</span>
+        <span class="skill-tag">I²C</span>
+        <span class="skill-tag">UDP</span>
+        <span class="skill-tag">BLE</span>
+        <span class="skill-tag">HTTP</span>
+      </div>
+    </div>
+    <div class="skill-category reveal">
+      <p class="skill-cat-title">HARDWARE DESIGN</p>
+      <div class="skill-tags">
+        <span class="skill-tag">EasyEDA</span>
+        <span class="skill-tag">Schematic Design</span>
+        <span class="skill-tag">PCB Layout</span>
+        <span class="skill-tag">Gerber Files</span>
+        <span class="skill-tag">DRC / ERC</span>
+      </div>
+    </div>
+    <div class="skill-category reveal">
+      <p class="skill-cat-title">TOOLS & PLATFORMS</p>
+      <div class="skill-tags">
+        <span class="skill-tag">STVD</span>
+        <span class="skill-tag">Arduino IDE</span>
+        <span class="skill-tag">VS Code</span>
+        <span class="skill-tag">Node-RED</span>
+        <span class="skill-tag">Git</span>
+      </div>
+    </div>
+    <div class="skill-category reveal">
+      <p class="skill-cat-title">OTHER</p>
+      <div class="skill-tags">
+        <span class="skill-tag">Sensor Integration</span>
+        <span class="skill-tag">Signal Processing</span>
+        <span class="skill-tag">OTA Updates</span>
+        <span class="skill-tag">IoT Systems</span>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <!-- <p class="section-label reveal">03</p> -->
+  <h2 class="section-title reveal">PROJECTS</h2>
+  <div class="projects-grid">
+
+    <div class="project-card reveal">
+      <p class="project-num">PROJECT_01</p>
+      <h3 class="project-name">DISTRIBUTED IOT SWARM SENSOR NETWORK</h3>
+      <p class="project-desc">
+        Real-time swarm system with Raspberry Pi 5 and 3× ESP32 units competing to become "Master" based on ambient light intensity. Features binary UDP packets at 100ms, live Node-RED dashboard, 8×8 LED matrix rolling graph, and a custom swarm consensus protocol.
+      </p>
+      <div class="project-tags">
+        <span class="project-tag">ESP32</span>
+        <span class="project-tag">Raspberry Pi 5</span>
+        <span class="project-tag">UDP</span>
+        <span class="project-tag">Node-RED</span>
+        <span class="project-tag">Python</span>
+        <span class="project-tag">MAX7219</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/AryaPatel004" target="_blank" class="project-link">↗ GITHUB</a>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <p class="project-num">PROJECT_02</p>
+      <h3 class="project-name">PUSH BUTTON RELAY MODULE</h3>
+      <p class="project-desc">
+        Compact relay-based switching module for elevator cabin fan and light control. Built around an STM8S003F3P6 microcontroller with EL817 optocoupler isolation, SRD-05VDC-SL-C relays, and an MC34063A DC-DC converter stepping 24V to 5V. Full schematic and double-layer PCB designed in EasyEDA.
+      </p>
+      <div class="project-tags">
+        <span class="project-tag">STM8</span>
+        <span class="project-tag">PCB Design</span>
+        <span class="project-tag">EasyEDA</span>
+        <span class="project-tag">Relay</span>
+        <span class="project-tag">Optocoupler</span>
+        <span class="project-tag">DC-DC</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/AryaPatel004" target="_blank" class="project-link">↗ GITHUB</a>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <p class="project-num">PROJECT_03</p>
+      <h3 class="project-name">FURMONITOR</h3>
+      <p class="project-desc">
+        Wearable biometric monitor for dogs measuring heart rate and SpO2 using ESP32 and the SparkFun MAX30101/MAX32664 sensor. Bypassed rigid built-in algorithms by developing a custom Ratio of Ratios SpO2 algorithm and IR peak-detection heart rate algorithm from raw sensor data.
+      </p>
+      <div class="project-tags">
+        <span class="project-tag">ESP32</span>
+        <span class="project-tag">MAX30101</span>
+        <span class="project-tag">I²C</span>
+        <span class="project-tag">Signal Processing</span>
+        <span class="project-tag">Arduino</span>
+        <span class="project-tag">BLE</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/AryaPatel004" target="_blank" class="project-link">↗ GITHUB</a>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <p class="project-num">PROJECT_04</p>
+      <h3 class="project-name">ELEVATOR SECURITY CONTROL SYSTEM</h3>
+      <p class="project-desc">
+        Multi-level authentication system for residential elevator access using RFID (RC522), fingerprint (ZW101), and 16-key capacitive keypad (TTP229). STM32G070CBT6 microcontroller with 74HC595 shift register, W25Q128 flash memory, 7-segment display, and a 24V→5V power supply. Full double-layer PCB designed in EasyEDA.
+      </p>
+      <div class="project-tags">
+        <span class="project-tag">STM32</span>
+        <span class="project-tag">RFID</span>
+        <span class="project-tag">Fingerprint</span>
+        <span class="project-tag">PCB Design</span>
+        <span class="project-tag">EasyEDA</span>
+        <span class="project-tag">SPI / UART</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/AryaPatel004" target="_blank" class="project-link">↗ GITHUB</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" style="padding:0; max-width:100%;">
+<div>
+  <!-- <p class="section-label reveal">04</p> -->
+  <h2 class="section-title reveal">EXPERIENCE</h2>
+  <div class="experience-list">
+    <div class="exp-card reveal">
+      <div class="exp-meta">
+        <p class="exp-company">UNIVERSITY OF CALIFORNIA, IRVINE</p>
+        <p class="exp-duration">JAN 2026 - PRESENT</p>
+        <p class="exp-location">Irvine, USA</p>
+      </div>
+      <div class="exp-body">
+        <h3 class="exp-role">ACADEMIC READER (GRADER) - EECS 150</h3>
+        <ul class="exp-points">
+          <li>Evaluate continuous-time signal and LTI system coursework for a cohort of about 220 EECS undergraduate students.</li>
+          <li>Assess technical proficiency in convolution methods, Fourier series, and Laplace transforms during recurring three-week grading cycles.</li>
+        </ul>
+      </div>
+    </div>
+  <div class="exp-card reveal">
+    <div class="exp-meta">
+      <p class="exp-company">SWASAU TECH</p>
+      <p class="exp-duration">DEC 2024 — APR 2025</p>
+      <p class="exp-location">Ahmedabad, India</p>
+    </div>
+    <div class="exp-body">
+      <h3 class="exp-role">EMBEDDED HARDWARE DESIGN INTERN</h3>
+      <ul class="exp-points">
+        <li>Designed full schematics and double-layer PCB layouts for the <strong style="color:var(--text)">Liftron Elevator Security Control System</strong> and a Push Button Relay Module using EasyEDA.</li>
+        <li>Interfaced MAX30101/MAX32664 pulse oximeter with ESP32; developed custom SpO2 and heart rate algorithms from raw sensor data when built-in algorithms proved incompatible with pet physiology.</li>
+        <li>Designed CH592 RISC-V BLE microcontroller schematic with USB-C, on-board PCB antenna, and power management circuitry for the FurMonitor wearable.</li>
+        <li>Conducted firmware flashing, voltage verification, AT command testing, and quality checks on ~300 Tx/Rx devices for the Lenskart Jig Communication Device project.</li>
+        <li>Programmed STM8 microcontroller using STVD and Cosmic compiler for relay toggle control logic.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="exp-card reveal">
+    <div class="exp-meta">
+      <p class="exp-company">E-INFOCHIPS</p>
+      <p class="exp-duration">MAY 2024 - JUN 2024</p>
+      <p class="exp-location">Ahmedabad, India</p>
+    </div>
+    <div class="exp-body">
+      <h3 class="exp-role">ASIC DESIGN INTERN</h3>
+      <ul class="exp-points">
+        <li>Led a four-person team to research and compile a hardware and supply chain teardown of the iPhone 15 for internal technical review.</li>
+        <li>Delivered weekly presentations to senior engineers analyzing IC vendor integrations and supplier relationships.</li>
+        <li>Implemented a complete RTL-to-GDSII physical design flow for a 4-bit up counter using the OpenROAD toolchain in Linux.</li>
+        <li>Executed core VLSI stages including Yosys synthesis, floorplanning, placement, and routing.</li>
+        <li>Researched AI adoption across seven enterprise sectors and synthesized findings around supply chain optimization, risk management, and customer engagement.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="exp-card reveal">
+    <div class="exp-meta">
+      <p class="exp-company">TEACHNOOK</p>
+      <p class="exp-duration">JUL 2023 - AUG 2023</p>
+      <p class="exp-location">Ahmedabad, India</p>
+    </div>
+    <div class="exp-body">
+      <h3 class="exp-role">HARDWARE INTERN</h3>
+      <ul class="exp-points">
+        <li>Developed an autonomous line-following robot using Arduino Uno, an L293D motor driver, and IR sensors.</li>
+        <li>Programmed embedded control logic in C, using PWM to regulate motor speed and steering response.</li>
+      </ul>
+    </div>
+  </div>
+  </div>
+</div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <!-- <p class="section-label reveal">05</p> -->
+  <h2 class="section-title reveal">EDUCATION</h2>
+  <div class="edu-grid">
+    <div class="edu-card reveal">
+      <p class="edu-degree">M.Eng - EMBEDDED AND CYBER-PHYSICAL SYSTEMS</p>
+      <p class="edu-school">University of California, Irvine</p>
+      <p class="edu-year">2025 — PRESENT</p>
+    </div>
+    <div class="edu-card reveal">
+      <p class="edu-degree">B.TECH — ELECTRONICS & COMMUNICATION</p>
+      <p class="edu-school">Nirma University, Ahmedabad</p>
+      <p class="edu-year">2021 — 2025</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <!-- <p class="section-label reveal">06</p> -->
+  <h2 class="section-title reveal">LET'S CONNECT</h2>
+  <p class="contact-sub reveal">
+    Open to internships, research collaborations, and interesting embedded systems problems. Feel free to reach out.
+  </p>
+  <div class="contact-links reveal">
+    <a href="https://github.com/AryaPatel004" target="_blank" class="btn btn-primary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+      GITHUB
+    </a>
+    <a href="https://www.linkedin.com/in/asp7203" target="_blank" class="btn btn-ghost">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LINKEDIN
+    </a>
+    <a href="mailto:aryapatel7203@gmail.com" target="_blank" class="btn btn-ghost">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 12.713l-11.985-9.713h23.97l-11.985 9.713zm0 2.574l-12-9.725v15.438h24v-15.438l-12 9.725z"/>
+  </svg>
+  EMAIL
+</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-copy">© 2025 ARYA SURESHBHAI PATEL</p>
+  <p class="footer-copy">BUILT WITH HTML · CSS · JS</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Active nav highlight
+  const sections = document.querySelectorAll('section[id], div[id="hero"]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--blue)' : '';
+    });
+  });
+</script>
+</body>
+</html>
